@@ -8,6 +8,15 @@
 
 import Foundation
 
+precedencegroup ActiveConstraintsPrecedence {
+    associativity: none
+    assignment: false
+}
+
+infix operator ==!: ActiveConstraintsPrecedence
+infix operator >=!: ActiveConstraintsPrecedence
+infix operator <=!: ActiveConstraintsPrecedence
+
 @available(iOS 9.0, *)
 public protocol DimensionAnchor {
     var dimension: NSLayoutDimension { get }
@@ -63,6 +72,30 @@ public func >=(dimension: DimensionAnchor, constant: CGFloat) -> NSLayoutConstra
     return dimension.dimension.constraint(greaterThanOrEqualToConstant: (constant - dimension.constant)/dimension.multiplier)
 }
 
+/// Create a layout constraint from an inequality comparing a dimension anchor and a constant and activate it.
+@available(iOS 9.0, *)
+public func <=!(dimension: DimensionAnchor, constant: CGFloat) -> NSLayoutConstraint {
+    let constraint = dimension <= constant
+    constraint.isActive = true
+    return constraint
+}
+
+/// Create a layout constraint from an equation comparing a dimension anchor and a constant and activate it.
+@available(iOS 9.0, *)
+public func ==!(dimension: DimensionAnchor, constant: CGFloat) -> NSLayoutConstraint {
+    let constraint = dimension == constant
+    constraint.isActive = true
+    return constraint
+}
+
+/// Create a layout constraint from an inequality comparing a dimension anchor and a constant and activate it.
+@available(iOS 9.0, *)
+public func >=!(dimension: DimensionAnchor, constant: CGFloat) -> NSLayoutConstraint {
+    let constraint = dimension >= constant
+    constraint.isActive = true
+    return constraint
+}
+
 /// Create a layout constraint from an inequality comparing a dimension anchor and a constant.
 @available(iOS 9.0, *)
 public func <=(dimension: DimensionAnchor, constant: PrioritizedConstant) -> NSLayoutConstraint {
@@ -79,6 +112,30 @@ public func ==(dimension: DimensionAnchor, constant: PrioritizedConstant) -> NSL
 @available(iOS 9.0, *)
 public func >=(dimension: DimensionAnchor, constant: PrioritizedConstant) -> NSLayoutConstraint {
     return dimension.dimension.constraint(greaterThanOrEqualToConstant: (constant.constant - dimension.constant)/dimension.multiplier).priority(constant.priority)
+}
+
+/// Create a layout constraint from an inequality comparing a dimension anchor and a constant and activate it.
+@available(iOS 9.0, *)
+public func <=!(dimension: DimensionAnchor, constant: PrioritizedConstant) -> NSLayoutConstraint {
+    let constraint = dimension <= constant
+    constraint.isActive = true
+    return constraint
+}
+
+/// Create a layout constraint from an equation comparing a dimension anchor and a constant and activate it.
+@available(iOS 9.0, *)
+public func ==!(dimension: DimensionAnchor, constant: PrioritizedConstant) -> NSLayoutConstraint {
+    let constraint = dimension == constant
+    constraint.isActive = true
+    return constraint
+}
+
+/// Create a layout constraint from an inequality comparing a dimension anchor and a constant and activate it.
+@available(iOS 9.0, *)
+public func >=!(dimension: DimensionAnchor, constant: PrioritizedConstant) -> NSLayoutConstraint {
+    let constraint = dimension >= constant
+    constraint.isActive = true
+    return constraint
 }
 
 /// Create a layout constraint from an inequality comparing a dimension anchor and a constant.
@@ -99,6 +156,30 @@ public func >=(constant: CGFloat, dimension: DimensionAnchor) -> NSLayoutConstra
     return dimension.dimension.constraint(greaterThanOrEqualToConstant: (constant - dimension.constant)/dimension.multiplier).priority(dimension.priority)
 }
 
+/// Create a layout constraint from an inequality comparing a dimension anchor and a constant and activate it.
+@available(iOS 9.0, *)
+public func <=!(constant: CGFloat, dimension: DimensionAnchor) -> NSLayoutConstraint {
+    let constraint = constant <= dimension
+    constraint.isActive = true
+    return constraint
+}
+
+/// Create a layout constraint from an equation comparing a dimension anchor and a constant and activate it.
+@available(iOS 9.0, *)
+public func ==!(constant: CGFloat, dimension: DimensionAnchor) -> NSLayoutConstraint {
+    let constraint = constant == dimension
+    constraint.isActive = true
+    return constraint
+}
+
+/// Create a layout constraint from an inequality comparing a dimension anchor and a constant and activate it.
+@available(iOS 9.0, *)
+public func >=!(constant: CGFloat, dimension: DimensionAnchor) -> NSLayoutConstraint {
+    let constraint = constant >= dimension
+    constraint.isActive = true
+    return constraint
+}
+
 /// Create a layout constraint from an inequality comparing two dimension anchors.
 @available(iOS 9.0, *)
 public func <=(lhs: DimensionAnchor, rhs: DimensionAnchor) -> NSLayoutConstraint {
@@ -115,6 +196,30 @@ public func ==(lhs: DimensionAnchor, rhs: DimensionAnchor) -> NSLayoutConstraint
 @available(iOS 9.0, *)
 public func >=(lhs: DimensionAnchor, rhs: DimensionAnchor) -> NSLayoutConstraint {
     return lhs.dimension.constraint(greaterThanOrEqualTo: rhs.dimension, multiplier: rhs.multiplier/lhs.multiplier, constant: (rhs.constant - lhs.constant)/lhs.multiplier).priority(rhs.priority)
+}
+
+/// Create a layout constraint from an inequality comparing two dimension anchors and activate it.
+@available(iOS 9.0, *)
+public func <=!(lhs: DimensionAnchor, rhs: DimensionAnchor) -> NSLayoutConstraint {
+    let constraint = lhs <= rhs
+    constraint.isActive = true
+    return constraint
+}
+
+/// Create a layout constraint from an equation comparing two dimension anchors and activate it.
+@available(iOS 9.0, *)
+public func ==!(lhs: DimensionAnchor, rhs: DimensionAnchor) -> NSLayoutConstraint {
+    let constraint = lhs == rhs
+    constraint.isActive = true
+    return constraint
+}
+
+/// Create a layout constraint from an inequality comparing two dimension anchors and activate it.
+@available(iOS 9.0, *)
+public func >=!(lhs: DimensionAnchor, rhs: DimensionAnchor) -> NSLayoutConstraint {
+    let constraint = lhs >= rhs
+    constraint.isActive = true
+    return constraint
 }
 
 /// Add a constant to a dimension anchor.
