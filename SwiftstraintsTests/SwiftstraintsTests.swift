@@ -111,6 +111,14 @@ class SwiftstraintsTests: XCTestCase {
         XCTAssert((view.widthAnchor == 10 | .low).priority == UILayoutPriority.defaultLow)
         XCTAssert((view.topAnchor == view.bottomAnchor | .high).priority == UILayoutPriority.defaultHigh)
         XCTAssert((view.topAnchor == view.bottomAnchor + 10 | .low).priority == UILayoutPriority.defaultLow)
+        XCTAssert((view.widthAnchor ==! (view.heightAnchor | .required)).priority == UILayoutPriority.required)
+        XCTAssert((view.widthAnchor ==! (view.heightAnchor | .high)).priority == UILayoutPriority.defaultHigh)
+        XCTAssert((view.widthAnchor ==! (view.heightAnchor | .low)).priority == UILayoutPriority.defaultLow)
+        XCTAssert((view.widthAnchor ==! (view.heightAnchor | .other(UILayoutPriority(rawValue: 0.18)))).priority.rawValue == 0.18)
+        XCTAssert((view.widthAnchor ==! (view.heightAnchor + 10 | .low)).priority == UILayoutPriority.defaultLow)
+        XCTAssert((view.widthAnchor ==! (10 | .low)).priority == UILayoutPriority.defaultLow)
+        XCTAssert((view.topAnchor ==! (view.bottomAnchor | .high)).priority == UILayoutPriority.defaultHigh)
+        XCTAssert((view.topAnchor ==! (view.bottomAnchor + 10 | .low)).priority == UILayoutPriority.defaultLow)
     }
     
     func testVisualFormatLanguage() {
