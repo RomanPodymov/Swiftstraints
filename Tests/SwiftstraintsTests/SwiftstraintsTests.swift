@@ -5,10 +5,11 @@
 //  Created by Bradley Hilton on 5/11/15.
 //  Copyright (c) 2015 Skyvive. All rights reserved.
 //
+#if canImport(UIKit)
 
 import UIKit
 import XCTest
-import Swiftstraints
+@testable import Swiftstraints
 
 func == (lh: NSLayoutConstraint, rh: NSLayoutConstraint) -> Bool {
     return lh.firstItem === rh.firstItem &&
@@ -241,3 +242,4 @@ class SwiftstraintsTests: XCTestCase {
     }
     
 }
+#endif
